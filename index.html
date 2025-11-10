@@ -3,51 +3,71 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Bikewatching</title>
+    <title>Boston & Cambridge Bike Network</title>
 
-    <!-- Global styles -->
-    <link rel="stylesheet" href="global.css" />
-
-    <!-- Mapbox GL JS CSS -->
+    <!-- Mapbox GL CSS (match the ESM version used in map.js) -->
     <link
       href="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.css"
       rel="stylesheet"
     />
 
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="global.css" />
+
     <!-- Favicon -->
-    <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href="favicon.svg" type="image/svg+xml" />
   </head>
 
   <body>
-    <header id="page-header">
-      <h1>🚴🏼‍♀️ Bikewatching</h1>
+    <!-- Header & Time Slider Filter -->
+    <header style="width:90%; max-width:1200px; display:flex; align-items:baseline; gap:1em;">
+      <div>
+        <h1>Boston & Cambridge Bike Network</h1>
+        <p>Exploring bike lanes, stations, and Bluebikes traffic patterns</p>
+      </div>
 
-      <!-- Time filter -->
-      <label id="time-filter">
-        <span>Filter by time:</span>
+      <label style="margin-left:auto; display:flex; flex-direction:column; align-items:flex-end;">
+        <span style="font-weight:600;">Filter by time:</span>
         <input
           id="time-slider"
           type="range"
           min="-1"
           max="1440"
-          step="1"
           value="-1"
-          aria-label="Filter by time of day"
+          step="5"
+          style="width:200px;"
         />
-        <time id="selected-time"></time>
+        <time id="selected-time" style="display:block;"></time>
         <em id="any-time">(any time)</em>
       </label>
     </header>
 
-    <p>An immersive, interactive map of Boston-area bike traffic.</p>
+<div id="map">
+  <svg id="overlay"></svg>
+  <div id="tooltip"></div>
+</div>
 
-    <!-- Map container + SVG overlay + HTML tooltip -->
-    <div id="map">
-      <svg id="overlay"></svg>
-      <div id="tooltip" role="tooltip" aria-hidden="true"></div>
-    </div>
 
-    <!-- Map + D3 logic -->
-    <script src="map.js" type="module" defer></script>
+<div class="legend-categorical legend-below">
+  <div class="legend-title">Legend:</div>
+
+  <div class="item" style="--departure-ratio: 1">
+    <span class="swatch"></span>
+    <span>More departures</span>
+  </div>
+
+  <div class="item" style="--departure-ratio: 0.5">
+    <span class="swatch"></span>
+    <span>Balanced</span>
+  </div>
+
+  <div class="item" style="--departure-ratio: 0">
+    <span class="swatch"></span>
+    <span>More arrivals</span>
+  </div>
+</div>
+
+    <!-- Your app logic (ES module) -->
+    <script type="module" src="map.js"></script>
   </body>
 </html>
