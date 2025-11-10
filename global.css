@@ -36,14 +36,20 @@ html, body {
 }
 
 #map {
-  position: relative;
-  width: 90%;             /* centered map */
+  width: 90%;
   max-width: 1200px;
-  height: calc(100vh - 6rem);
+  aspect-ratio: 16 / 9;    
   margin: 0 auto;
   border-radius: 8px;
   overflow: hidden;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+*/
+@media (max-width: 768px) {
+  #map {
+    aspect-ratio: 4 / 3;   
+  }
 }
 
 /* SVG overlay above map */
