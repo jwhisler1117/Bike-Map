@@ -1,41 +1,86 @@
+/* ────────────────────────────────
+   1. Base Page Layout
+──────────────────────────────── */
+
+/* Center text but let map stay full width */
 body {
   font: 100%/1.5 system-ui, sans-serif;
   display: flex;
-  flex-flow: column;
-  max-width: 80em;
+  flex-direction: column;
+  align-items: center;  /* center text horizontally */
+  justify-content: flex-start;
   min-height: 100vh;
-  box-sizing: border-box;
-  margin: auto;
+  margin: 0;
   padding: 1em;
+  box-sizing: border-box;
 }
 
-html,
-body {
+h1 { margin: 0 0 0.25rem 0; }
+p  { margin: 0 0 1rem 0; }
+
+/* ────────────────────────────────
+   2. Map Layout and Layers
+──────────────────────────────── */
+html, body {
+  height: 100%;
+  width: 100%;
   margin: 0;
   padding: 0;
-  height: 100%;
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  overflow-x: hidden; /* prevent horizontal scroll */
 }
 
 #map {
-  width: 100%;
-  height: 100%;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  position: relative;
+  width: 90%;             /* not 100%, so it’s centered nicely */
+  max-width: 1200px;      /* keeps it from stretching too wide */
+  height: calc(100vh - 6rem);
+  margin: 0 auto;         /* center horizontally */
   border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
 }
 
-#map {
-  position: relative; /
-}
-
+/* SVG overlay above map */
 #map svg {
   position: absolute;
-  inset: 0;          
+  inset: 0;
   width: 100%;
   height: 100%;
-  z-index: 1;        
-  pointer-events: none; 
+  z-index: 1;
+  pointer-events: none;
+}
+
+/* Circle markers */
+#map svg circle {
+  pointer-events: auto;
+  fill: steelblue;
+  fill-opacity: 0.6;
+  stroke: white;
+  stroke-width: 1px;
+}
+
+/* ────────────────────────────────
+   3. Tooltip
+──────────────────────────────── */
+#tooltip {
+  position: absolute;
+  z-index: 2;
+  pointer-events: none;
+  background: rgba(0,0,0,0.8);
+  color: white;
+  padding: 0.5rem 0.6rem;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  line-height: 1.2;
+  transform: translate(12px, 12px);
+  opacity: 0;
+  transition: opacity 120ms ease;
+  max-width: 260px;
+  box-shadow: 0 6px 16px rgba(0,0,0,0.25);
+  backdrop-filter: saturate(120%) blur(2px);
+}
+
+#tooltip strong {
+  display: block;
+  margin-bottom: 0.2rem;
 }

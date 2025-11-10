@@ -14,24 +14,40 @@
       rel="stylesheet"
     />
 
-    <!-- Map-specific styles -->
-    <link rel="stylesheet" href="map.css" />
-
     <!-- Favicon -->
     <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
   </head>
 
   <body>
-    <h1>🚴🏼‍♀️ Bikewatching</h1>
+    <header id="page-header">
+      <h1>🚴🏼‍♀️ Bikewatching</h1>
+
+      <!-- Time filter -->
+      <label id="time-filter">
+        <span>Filter by time:</span>
+        <input
+          id="time-slider"
+          type="range"
+          min="-1"
+          max="1440"
+          step="1"
+          value="-1"
+          aria-label="Filter by time of day"
+        />
+        <time id="selected-time"></time>
+        <em id="any-time">(any time)</em>
+      </label>
+    </header>
+
     <p>An immersive, interactive map of Boston-area bike traffic.</p>
 
-<!-- Map container -->
-<div id="map">
-  <svg id="overlay"></svg>
-</div>
+    <!-- Map container + SVG overlay + HTML tooltip -->
+    <div id="map">
+      <svg id="overlay"></svg>
+      <div id="tooltip" role="tooltip" aria-hidden="true"></div>
+    </div>
 
-
-    <!-- Mapbox JS (loaded after the DOM so #map exists) -->
+    <!-- Map + D3 logic -->
     <script src="map.js" type="module" defer></script>
   </body>
 </html>
